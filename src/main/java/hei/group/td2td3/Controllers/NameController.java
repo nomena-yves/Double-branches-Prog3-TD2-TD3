@@ -31,8 +31,11 @@ public class NameController {
     }
 
     @GetMapping(value="/students",produces = "application/json")
-    public List<String> getStudents() {
+    public List<String> getStudents(@RequestHeader(value = "Accept", required = false)String accept) {
         List<String> list=new ArrayList<>();
+        if (accept != null && !accept.contains("application/json")) {
+            System.out.println("Format non suporte");
+        }
         for(StudentsEntity student:listGeneral){
             list.add(student.getFirstName()+" "+student.getLastName());
         }
