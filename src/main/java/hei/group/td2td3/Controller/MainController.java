@@ -20,9 +20,12 @@ public class MainController {
     }
 
     @PostMapping(value = "/student",produces = "application/json")
-    public ResponseEntity<String> addStudent(@RequestBody List<StudentEntity> student) {
+    public ResponseEntity<String> addStudent(@RequestBody List<StudentEntity> student,@RequestHeader(value = "Accept", required = false) String accept) {
         List<String> list=new ArrayList<>();
     try{
+        if (accept != null && !accept.contains("application/json")) {
+            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build();
+        }
         for (StudentEntity studentEntity : student) {
             listGeneral.add(studentEntity);
         }
@@ -33,5 +36,17 @@ public class MainController {
     }catch (Exception e){
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
     }
+    }
+    @GetMapping(value = "/student",produces = "application/json")
+    public ResponseEntity<String> getAllStudents(@RequestHeader(value = "Accept", required = false) String accept) {
+        try {
+            if (accept != null && !accept.contains("application/json")) {
+                return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).build(); // 406
+            }
+
+            return ResponseEntity.status(HttpStatus.OK).body(listGeneral.toString());
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        }
     }
 }
