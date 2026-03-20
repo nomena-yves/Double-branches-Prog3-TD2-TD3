@@ -29,4 +29,13 @@ public class NameController {
         }
         return list;
     }
+
+    @GetMapping(value="/students",produces = "application/json")
+    public List<String> getStudents() {
+        List<String> list=new ArrayList<>();
+        for(StudentsEntity student:listGeneral){
+            list.add(student.getFirstName()+" "+student.getLastName());
+        }
+        return list;
+    }
 }
