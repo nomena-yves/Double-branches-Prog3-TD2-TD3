@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class MainController {
-@GetMapping("/welcome")
-    public ResponseEntity <String> welcome(@RequestParam String name) {
-    if (name == null) {
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    @GetMapping("/bonjour")
+    public ResponseEntity<String> welcome(@RequestParam(required = false) String name) {
+        if (name == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.ok("Welcome " + name);
     }
-    return ResponseEntity.ok("Welcome " + name);
-}
 }
