@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class MainController {
     @GetMapping("/bonjour")
     public ResponseEntity<String> welcome(@RequestParam(required = false) String name) {
-        if (name == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        if (name == null || name.trim().isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Name not found");
         }
         return ResponseEntity.ok("Welcome " + name);
     }
