@@ -23,7 +23,6 @@ public class MainController {
         this.welcomeService = welcomeService;
         this.studentValidateur = studentValidateur;
     }
-    List<StudentEntity> listGeneral=new ArrayList<>();
     @GetMapping("/welcome")
     public ResponseEntity<String> welcome(@RequestParam(required = false) String name) {
         return ResponseEntity.ok(welcomeService.welcome(name));
