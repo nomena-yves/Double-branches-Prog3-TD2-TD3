@@ -17,4 +17,8 @@ public class StudentService {
                 .map(s -> s.getFirstName() + " " + s.getLastName())
                 .toList();
     }
+
+    public List<StudentEntity> getAllStudents() {
+        return listGeneral;
+    }
 }
